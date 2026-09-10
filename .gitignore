@@ -1,0 +1,17 @@
+# Temp working directory
+work/*
+
+!work/.gitkeep
+
+# Simulation-generated files
+*.raw
+*.log
+*.out
+
+# Editor
+*~
+*.bak
+*.swp
+
+# Python
+*.pyc

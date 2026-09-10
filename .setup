@@ -1,0 +1,47 @@
+#!/bin/bash
+
+if ! command -v sak-pdk >/dev/null 2>&1; then
+	echo "[ERROR] This .setup must be sourced inside IIC-OIC-TOOLS"
+	echo "Start IIC first with eda alias, then source this file"
+	return 1
+fi
+
+# =========================================
+# project_carac_sky130A - Project env.
+# =========================================
+export IP_NAME="project_carac_sky130A"
+export IP_PATH="/foss/designs/${IP_NAME}"
+
+# PDK
+sak-pdk sky130A
+
+# Project libraries
+export DESIGN_LIB="${IP_PATH}/dfii/${IP_NAME}"
+export SIM_LIB="${IP_PATH}/dfii/${IP_NAME}_sim" 
+
+export WORK_DIR="${IP_PATH}/work"
+
+# Check for exisiting, or not, working directory
+if [ ! -d "${WORK_DIR}" ]; then
+	echo "[INFO] work/ directory not found, creating it..."
+	mkdir -p "${WORK_DIR}"
+fi
+
+echo ""
+echo "====================================================="
+echo " Project : ${IP_NAME}"
+echo " IP_PATH : ${IP_PATH}"
+echo " PDK     : ${PDK}"
+echo " PDKPATH : ${PDK_PATH}"
+echo "====================================================="
+echo " Design  : ${DESIGN_LIB}"
+echo " Sim     : ${SIM_LIB}"
+echo "====================================================="
+echo ""
+
+cd "${WORK_DIR}" || return 
+
+echo "[INFO] Working directory: $(pwd)"
+
+xschem --tcl "set netlist_dir {$WORK_DIR}" &
+

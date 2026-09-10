@@ -1,0 +1,22 @@
+# Xschem project config
+
+# Load SKY130 Xschem configuration
+source $env(PDK_ROOT)/$env(PDK)/libs.tech/xschem/xschemrc
+
+# Add project libraries
+# Point to dfii so symbols are referenced as ;
+# 
+# project_open_cis/cell.sym
+# project_open_cis_sim/tb.sym
+
+append XSCHEM_LIBRARY_PATH :$env(IP_PATH)/dfii
+
+# Keep generated simulation/netlist files in project work/
+set netlist_dir $env(IP_PATH)/work
+
+puts ""
+puts "project_open_cis configuration loaded"
+puts "DEsign library: $env(DESIGN_LIB)"
+puts "Simulation library: $env(SIM_LIB)"
+puts "Netlist/work dir: $netlist_dir"
+puts ""
