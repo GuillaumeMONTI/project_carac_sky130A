@@ -1,17 +1,32 @@
-# Temp working directory
-work/*
 
+# ============================================================
+# Temporary work directory
+# ============================================================
+work/*
 !work/.gitkeep
 
-# Simulation-generated files
+# ============================================================
+# Generated / simulator files
+# ============================================================
 *.raw
 *.log
 *.out
+*.spice
 
-# Editor
+# ============================================================
+# Locally generated PDK model decks
+# ============================================================
+models/reduced/*
+!models/reduced/.gitkeep
+
+# ============================================================
+# Editor / OS temporary files
+# ============================================================
 *~
 *.bak
 *.swp
+.DS_Store
 
-# Python
+# Python cache
+__pycache__/
 *.pyc

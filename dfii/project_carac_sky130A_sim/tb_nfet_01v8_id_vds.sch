@@ -46,7 +46,7 @@ model=nfet_01v8
 spiceprefix=X
 }
 C {vsource.sym} 1180 -1360 0 0 {name=VGS value=0 savecurrent=false}
-C {vsource.sym} 1380 -1470 0 0 {name=VDS value=\{VDS_BIAS\} savecurrent=false}
+C {vsource.sym} 1380 -1470 0 0 {name=VDS value=0 savecurrent=false}
 C {gnd.sym} 1180 -1270 0 0 {name=l1 lab=0}
 C {lab_pin.sym} 1300 -1520 0 0 {name=p1 sig_type=std_logic lab=vds}
 C {lab_pin.sym} 1250 -1390 0 0 {name=p2 sig_type=std_logic lab=vgs}
@@ -55,35 +55,19 @@ value=".include /foss/designs/project_carac_sky130A/models/reduced/sky130_tt.red
 
 .param WDEV=10
 .param LDEV=0.5
-.param VDS_BIAS=0.9
-
+.param VGS_BIAS=1.0
 "}
 C {code_shown.sym} 520 -1710 0 0 {name=s2 only_toplevel=true place=end 
 value=".control
-save v(vgs) 
-save v(vds) 
+
+save v(vds)
+save v(vgs)
 save i(VDS)
 
-save @m.xm1.msky130_fd_pr__nfet_01v8[gm]
-save @m.xm1.msky130_fd_pr__nfet_01v8[gds]
-save @m.xm1.msky130_fd_pr__nfet_01v8[vth]
-save @m.xm1.msky130_fd_pr__nfet_01v8[vdsat]
-
-dc VGS 0 1.8 0.005 
+dc VDS 0 1.8 0.005 VGS 0.6 1.8 0.2
 
 let id = -i(VDS)
-let gm = @m.xm1.msky130_fd_pr__nfet_01v8[gm]
-let gds = @m.xm1.msky130_fd_pr__nfet_01v8[gds]
-let vth = @m.xm1.msky130_fd_pr__nfet_01v8[vth]
-let vdsat = @m.xm1.msky130_fd_pr__nfet_01v8[vdsat]
 
-let ro		= 1/gds
-let gm_id 	= gm/id
-let gm_gds 	= gm/gds
-
-set wr_vecnames
-set wr_singlescale
-
-write tb_nfet_01v8_dc.raw v(vgs) id vth vdsat gm gds ro vth gm_id gm_gds
+write tb_nfet_01v8_id_vds.raw v(vds) v(vgs) id
 
 .endc"}
