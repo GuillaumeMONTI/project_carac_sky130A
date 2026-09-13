@@ -1,0 +1,65 @@
+% !TeX root = ../main.tex
+
+% ============================================================
+% GENERAL TEXT
+% ============================================================
+
+% Slightly increased line spacing for screen readability
+\linespread{1.05}
+
+% No paragraph indentation
+\setlength{\parindent}{0pt}
+
+% Small vertical separation between paragraphs
+\setlength{\parskip}{0.45em}
+
+
+% ============================================================
+% SECTION TITLES
+% ============================================================
+
+\titleformat{\section}
+    {\sffamily\Large\bfseries\color{TextColor}}
+    {\color{AccentColor}\thesection}
+    {0.8em}
+    {}
+
+\titleformat{\subsection}
+    {\sffamily\large\bfseries\color{TextColor}}
+    {\color{AccentColor}\thesubsection}
+    {0.7em}
+    {}
+
+\titleformat{\subsubsection}
+    {\sffamily\normalsize\bfseries\color{TextColor}}
+    {\color{AccentColor}\thesubsubsection}
+    {0.6em}
+    {}
+
+
+% ============================================================
+% SECTION SPACING
+% ============================================================
+
+\titlespacing*{\section}
+    {0pt}
+    {1.8em}
+    {0.8em}
+
+\titlespacing*{\subsection}
+    {0pt}
+    {1.4em}
+    {0.6em}
+
+\titlespacing*{\subsubsection}
+    {0pt}
+    {1.2em}
+    {0.5em}
+    
+% ============================================================
+% TECHNICAL TEXT COMMANDS
+% ============================================================
+
+\newcommand{\signal}[1]{\texttt{#1}}
+\newcommand{\device}[1]{\texttt{#1}}
+\newcommand{\code}[1]{\texttt{#1}}

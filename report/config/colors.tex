@@ -1,0 +1,43 @@
+% !TeX root = ../main.tex
+
+% ============================================================
+% DOCUMENT COLOR PALETTE
+% ============================================================
+
+% Main page background:
+% very light cool grey
+\definecolor{PageBackground}{HTML}{F5F7F8}
+
+% Main body text:
+% dark charcoal rather than pure black
+\definecolor{TextColor}{HTML}{202428}
+
+% Secondary / muted text:
+\definecolor{MutedText}{HTML}{555E68}
+
+% Main visual accent:
+% restrained blue-teal
+\definecolor{AccentColor}{HTML}{245FAE}
+
+% Very light accent background:
+% intended later for information/result boxes
+\definecolor{AccentBackground}{HTML}{E8F0F2}
+
+% Light structural lines:
+\definecolor{RuleColor}{HTML}{CCD3D6}
+
+% ============================================================
+% COLOR-BASED TEXT COMMANDS
+% ============================================================
+
+\newcommand{\mutedtext}[1]{%
+    {\color{MutedText}\textit{#1}}%
+}
+
+% Neutral background for secondary technical boxes
+\definecolor{NeutralBackground}{HTML}{ECEFF2}
+
+% Code syntax colors
+\definecolor{CodeKeyword}{HTML}{245FAE}
+\definecolor{CodeComment}{HTML}{66717D}
+\definecolor{CodeString}{HTML}{7A4E9D}

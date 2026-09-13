@@ -1,0 +1,93 @@
+% !TeX root = ../main.tex
+
+% ============================================================
+% COMMON TECHNICAL BOX STYLE
+% ============================================================
+
+\tcbset{
+    technicalbox/.style={
+        enhanced,
+        breakable,
+        boxrule=0pt,
+        arc=1mm,
+        left=4mm,
+        right=4mm,
+        top=3mm,
+        bottom=3mm,
+        before skip=1em,
+        after skip=1em,
+        fonttitle=\sffamily\bfseries,
+        coltitle=TextColor
+    }
+}
+
+
+% ============================================================
+% DESIGN OBJECTIVE
+% ============================================================
+
+\newtcolorbox{designobjective}[1][]{
+    technicalbox,
+    title={Design Objective},
+    colback=AccentBackground,
+    colframe=AccentColor,
+    leftrule=2.5pt,
+    #1
+}
+
+
+% ============================================================
+% DESIGN NOTE
+% ============================================================
+
+\newtcolorbox{designnote}[1][]{
+    technicalbox,
+    title={Design Note},
+    colback=NeutralBackground,
+    colframe=MutedText,
+    leftrule=2pt,
+    #1
+}
+
+
+% ============================================================
+% ASSUMPTION
+% ============================================================
+
+\newtcolorbox{assumption}[1][]{
+    technicalbox,
+    title={Assumption},
+    colback=NeutralBackground,
+    colframe=MutedText,
+    leftrule=2pt,
+    fontupper=\itshape\color{MutedText},
+    #1
+}
+
+
+% ============================================================
+% KEY RESULT
+% ============================================================
+
+\newtcolorbox{keyresult}[1][]{
+    technicalbox,
+    title={Key Result},
+    colback=AccentBackground,
+    colframe=AccentColor,
+    leftrule=3pt,
+    #1
+}
+
+
+% ============================================================
+% DESIGN CONSTRAINT
+% ============================================================
+
+\newtcolorbox{designconstraint}[1][]{
+    technicalbox,
+    title={Design Constraint},
+    colback=NeutralBackground,
+    colframe=TextColor,
+    leftrule=2.5pt,
+    #1
+}

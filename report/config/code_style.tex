@@ -1,0 +1,83 @@
+% !TeX root = ../main.tex
+
+% ============================================================
+% GENERAL LISTING STYLE
+% ============================================================
+
+\lstdefinestyle{engineering}{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{NeutralBackground},
+    frame=single,
+    rulecolor=\color{RuleColor},
+    framesep=4mm,
+    xleftmargin=0pt,
+    xrightmargin=0pt,
+    aboveskip=1em,
+    belowskip=1em,
+    numbers=left,
+    numberstyle=\ttfamily\tiny\color{MutedText},
+    numbersep=8pt,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    breaklines=true,
+    breakatwhitespace=false,
+    keepspaces=true,
+    columns=fullflexible,
+    keywordstyle=\color{CodeKeyword}\bfseries,
+    commentstyle=\color{CodeComment}\itshape,
+    stringstyle=\color{CodeString},
+    captionpos=b
+}
+
+\crefname{lstlisting}{listing}{listings}
+\Crefname{lstlisting}{Listing}{Listings}
+
+
+% ============================================================
+% TERMINAL STYLE
+% ============================================================
+
+\lstdefinestyle{terminal}{
+    basicstyle=\ttfamily\small\color{PageBackground},
+    backgroundcolor=\color{TextColor},
+    numbers=none,
+    frame=single,
+    rulecolor=\color{TextColor},
+    framesep=4mm,
+    xleftmargin=0pt,
+    xrightmargin=0pt,
+    aboveskip=1em,
+    belowskip=1em,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    breaklines=true,
+    breakatwhitespace=false,
+    keepspaces=true,
+    columns=fullflexible
+}
+
+
+% ============================================================
+% SPICE LANGUAGE
+% ============================================================
+
+\lstdefinelanguage{SPICE}{
+    morecomment=[l]{*},
+    morekeywords={
+        .include,
+        .lib,
+        .param,
+        .model,
+        .subckt,
+        .ends,
+        .tran,
+        .ac,
+        .dc,
+        .op,
+        .measure,
+        .end
+    },
+    sensitive=false
+}

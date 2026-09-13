@@ -1,0 +1,70 @@
+% !TeX root = ../main.tex
+
+% ============================================================
+% PAGE GEOMETRY
+% ============================================================
+
+\geometry{
+    a4paper,
+    left=20mm,
+    right=20mm,
+    top=22mm,
+    bottom=22mm,
+    headheight=15pt,
+    headsep=8mm,
+    footskip=12mm
+}
+
+% ============================================================
+% MAIN PAGE STYLE
+% ============================================================
+
+\fancypagestyle{portfolio}{
+    \fancyhf{}
+
+    % Header
+    \fancyhead[L]{%
+        \sffamily\small\color{MutedText}\projectname
+    }
+
+    \fancyhead[R]{%
+        \sffamily\small\color{MutedText}\projectpdk
+    }
+
+    % Footer
+    \fancyfoot[L]{%
+        \sffamily\small\color{MutedText}\projectauthor
+    }
+
+    \fancyfoot[R]{%
+        \sffamily\small\color{TextColor}
+        \thepage\ /\ \pageref{LastPage}
+    }
+
+    % Rules
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+% Subtle header rule
+\renewcommand{\headrule}{%
+    \hbox to\headwidth{%
+        \color{RuleColor}%
+        \leaders\hrule height \headrulewidth\hfill
+    }%
+}
+
+% ============================================================
+% FRONT-MATTER PAGE STYLE
+% ============================================================
+
+\fancypagestyle{frontmatter}{
+    \fancyhf{}
+
+    \fancyfoot[R]{%
+        \sffamily\small\color{MutedText}\thepage
+    }
+
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}

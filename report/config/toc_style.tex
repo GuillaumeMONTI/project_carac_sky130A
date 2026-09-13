@@ -1,0 +1,127 @@
+% !TeX root = ../main.tex
+
+% ============================================================
+% TABLE OF CONTENTS
+% ============================================================
+
+\renewcommand{\contentsname}{Contents}
+
+
+% ------------------------------------------------------------
+% TITLE
+% ------------------------------------------------------------
+
+\renewcommand{\cfttoctitlefont}{%
+    \sffamily
+    \fontsize{28}{32}\selectfont
+    \bfseries
+    \color{TextColor}
+}
+
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{12mm}
+
+
+% ------------------------------------------------------------
+% SECTION ENTRIES
+% ------------------------------------------------------------
+
+\renewcommand{\cftsecfont}{%
+    \sffamily
+    \bfseries
+    \color{TextColor}
+}
+
+\renewcommand{\cftsecpagefont}{%
+    \sffamily
+    \bfseries
+    \color{AccentColor}
+}
+
+\setlength{\cftbeforesecskip}{0.8em}
+
+\setlength{\cftsecindent}{0pt}
+\setlength{\cftsecnumwidth}{2.8em}
+
+% No dotted leader for main sections
+\renewcommand{\cftsecleader}{\hfill}
+
+
+% ------------------------------------------------------------
+% SUBSECTION ENTRIES
+% ------------------------------------------------------------
+
+\renewcommand{\cftsubsecfont}{%
+    \sffamily
+    \color{TextColor}
+}
+
+\renewcommand{\cftsubsecpagefont}{%
+    \sffamily
+    \color{MutedText}
+}
+
+\setlength{\cftbeforesubsecskip}{0.25em}
+
+\setlength{\cftsubsecindent}{2.8em}
+\setlength{\cftsubsecnumwidth}{3.2em}
+
+
+% ------------------------------------------------------------
+% SUBSUBSECTION ENTRIES
+% ------------------------------------------------------------
+
+\renewcommand{\cftsubsubsecfont}{%
+    \sffamily
+    \small
+    \color{MutedText}
+}
+
+\renewcommand{\cftsubsubsecpagefont}{%
+    \sffamily
+    \small
+    \color{MutedText}
+}
+
+\setlength{\cftsubsubsecindent}{6em}
+\setlength{\cftsubsubsecnumwidth}{3.8em}
+
+% Show sections and subsections in the TOC
+\setcounter{tocdepth}{2}
+
+\renewcommand{\cftsecpresnum}{%
+    \color{AccentColor}
+}
+
+\renewcommand{\cftsecaftersnum}{%
+    \color{TextColor}
+}
+
+\renewcommand{\cftsubsecpresnum}{%
+    \color{AccentColor}
+}
+
+\renewcommand{\cftsubsecaftersnum}{%
+    \color{TextColor}
+}
+
+% ============================================================
+% LIST OF FIGURES / TABLES
+% ============================================================
+
+\renewcommand{\listfigurename}{List of Figures}
+\renewcommand{\listtablename}{List of Tables}
+
+\renewcommand{\cftloftitlefont}{%
+    \sffamily
+    \fontsize{28}{32}\selectfont
+    \bfseries
+    \color{TextColor}
+}
+
+\renewcommand{\cftlottitlefont}{%
+    \sffamily
+    \fontsize{28}{32}\selectfont
+    \bfseries
+    \color{TextColor}
+}

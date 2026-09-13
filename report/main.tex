@@ -1,0 +1,110 @@
+\documentclass[11pt,a4paper]{article}
+
+
+% ============================================================
+% CONFIGURATION
+% ============================================================
+
+\input{config/project_info}
+\input{config/packages}
+\input{config/colors}
+\input{config/typography}
+\input{config/layout}
+\input{config/toc_style}
+\input{config/boxes}
+\input{config/captions}
+\input{config/code_style}
+\input{config/bibliography}
+
+
+% ============================================================
+% PDF METADATA
+% ============================================================
+
+\hypersetup{
+    pdftitle={\projecttitle},
+    pdfauthor={\projectauthor},
+    pdfsubject={Analog IC Design},
+    pdfkeywords={Analog IC Design, SKY130A, Xschem, ngspice},
+    colorlinks=true,
+    linkcolor=AccentColor,
+    urlcolor=AccentColor,
+    citecolor=AccentColor
+}
+
+
+% ============================================================
+% DOCUMENT
+% ============================================================
+
+\begin{document}
+
+\pagecolor{PageBackground}
+\color{TextColor}
+
+
+% ============================================================
+% FRONT MATTER
+% ============================================================
+
+\hypersetup{pageanchor=false}
+
+\input{frontmatter/titlepage}
+
+\hypersetup{pageanchor=true}
+
+\pagenumbering{roman}
+
+\input{frontmatter/toc}
+
+% Optional for large reports:
+% \input{frontmatter/lists}
+
+
+% ============================================================
+% MAIN CONTENT
+% ============================================================
+
+% ============================================================
+% MAIN CONTENT
+% ============================================================
+
+\clearpage
+\pagenumbering{arabic}
+\pagestyle{portfolio}
+
+\input{sections/01_project_overview}
+
+\clearpage
+\input{sections/02_characterization_methodology}
+
+\clearpage
+\input{sections/03_nmos_characterization}
+
+\clearpage
+\input{sections/04_pmos_characterization}
+
+\clearpage
+\input{sections/05_gmid_design_data}
+
+\clearpage
+\input{sections/06_process_temperature}
+
+\clearpage
+\input{sections/07_design_insights}
+
+\clearpage
+\input{sections/08_conclusion}
+
+
+% ============================================================
+% BACK MATTER
+% ============================================================
+
+% Optional:
+% \input{backmatter/appendices}
+
+\input{backmatter/references}
+
+
+\end{document}

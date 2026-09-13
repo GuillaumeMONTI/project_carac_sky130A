@@ -1,0 +1,84 @@
+% !TeX root = ../main.tex
+
+\section{Characterization Methodology}
+\label{sec:characterization_methodology}
+
+\subsection{Simulation Environment}
+
+The characterization environment is based on the open-source
+IIC-OSIC-TOOLS design stack.
+
+The main tools used are:
+
+\begin{itemize}
+	\item \code{Xschem} for schematic capture,
+	\item \code{ngspice} for electrical simulation,
+	\item the SKY130A PDK for transistor models,
+	\item scripting for automated data extraction and post-processing.
+\end{itemize}
+
+
+\subsection{Device Testbench}
+
+A dedicated MOS characterization testbench is used to control the
+device terminal voltages independently.
+
+The transistor operating point is evaluated while sweeping the relevant
+bias quantities such as $V_{GS}$ and $V_{DS}$.
+
+% Insert characterization testbench schematic here.
+
+
+\subsection{Bias Sweeps}
+
+The characterization is based primarily on DC sweeps.
+
+Typical sweep variables include:
+
+\begin{itemize}
+	\item gate-source voltage $V_{GS}$,
+	\item drain-source voltage $V_{DS}$,
+	\item transistor channel length $L$,
+	\item process corner,
+	\item temperature.
+\end{itemize}
+
+
+\subsection{Extracted Quantities}
+
+For every operating point, the simulator provides or allows the
+derivation of the transistor quantities required for analog design.
+
+The principal metrics are
+
+\begin{equation}
+	\frac{g_m}{I_D}
+	\label{eq:gmid}
+\end{equation}
+
+and
+
+\begin{equation}
+	A_{v,\mathrm{int}}
+	=
+	\frac{g_m}{g_{ds}},
+	\label{eq:intrinsic_gain}
+\end{equation}
+
+where $\frac{g_m}{I_D}$ represents transconductance efficiency and
+$\frac{g_m}{g_{ds}}$ represents the transistor intrinsic voltage gain.
+
+
+\subsection{Data Processing}
+
+Simulation results are exported and processed to generate reusable
+characterization curves and design data.
+
+\begin{designnote}
+	
+	The characterization scripts and testbenches are kept separate from
+	the report itself. The report documents the methodology and the
+	resulting design insight, while the repository contains the complete
+	implementation.
+	
+\end{designnote}

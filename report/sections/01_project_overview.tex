@@ -1,0 +1,53 @@
+% !TeX root = ../main.tex
+
+\section{Project Overview}
+\label{sec:project_overview}
+
+\subsection{Objective}
+
+The purpose of this project is to characterize the analog MOS devices
+available in the SKY130A process design kit and generate practical
+design data for transistor-level analog IC design.
+
+Rather than relying only on simplified MOS models, the characterization
+is performed directly using the foundry device models through
+\code{ngspice}.
+
+\begin{designobjective}
+	
+	Build a reusable characterization flow providing the principal
+	electrical quantities required for analog sizing, including drain
+	current, threshold voltage, saturation voltage, transconductance,
+	output conductance, transconductance efficiency and intrinsic gain.
+	
+\end{designobjective}
+
+
+\subsection{Characterization Scope}
+
+The characterization initially focuses on the core NMOS and PMOS
+devices used for analog design.
+
+The extracted quantities include:
+
+\begin{itemize}
+	\item drain current $I_D$,
+	\item threshold voltage $V_{TH}$,
+	\item saturation voltage $V_{DSAT}$,
+	\item transconductance $g_m$,
+	\item output conductance $g_{ds}$,
+	\item transconductance efficiency $\frac{g_m}{I_D}$,
+	\item intrinsic gain $\frac{g_m}{g_{ds}}$.
+\end{itemize}
+
+
+\subsection{Design Flow}
+
+The characterization flow is based on automated DC simulations of the
+SKY130A device models.
+
+Electrical quantities are extracted over controlled bias sweeps and
+stored in a form that can later be reused during transistor sizing.
+
+The resulting data will serve as a design reference for subsequent
+analog projects implemented with the SKY130A PDK.
