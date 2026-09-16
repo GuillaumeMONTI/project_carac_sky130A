@@ -8,7 +8,11 @@ The objective of this project is not to reproduce MOS transistor theory or exhau
 
 ## PDF Report
 
-### [View the complete characterization report](report/report_project_carac_sky130A.pdf)
+### [Open the interactive PDF report](https://guillaumemonti.github.io/project_carac_sky130A/report/report_project_carac_sky130A.pdf)
+
+[View the PDF file on GitHub](report/report_project_carac_sky130A.pdf)
+
+The interactive version is recommended because internal section, figure, table, and reference links remain clickable.
 
 The report contains:
 
