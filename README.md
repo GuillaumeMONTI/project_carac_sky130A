@@ -15,9 +15,9 @@ The report contains:
 - characterization methodology and Xschem testbenches,
 - drain-current transfer characteristics,
 - output-characteristic families,
-- threshold voltage \(V_{TH}\),
-- saturation voltage \(V_{DSAT}\),
-- \(g_m/I_D\) sizing data,
+- threshold voltage V<sub>TH</sub>,
+- saturation voltage V<sub>DSAT</sub>,
+- g<sub>m</sub>/I<sub>D</sub> sizing data,
 - MOS gate-capacitance characterization,
 - native-NMOS characterization,
 - a compact device quick-reference table.
@@ -35,11 +35,11 @@ The current project focuses on device families that are expected to be useful in
 
 Characterized for:
 
-- \(I_D(V_{GS})\)
-- \(I_D(V_{DS})\)
-- \(V_{TH}\)
-- \(V_{DSAT}\)
-- \(g_m/I_D\)
+- I<sub>D</sub>(V<sub>GS</sub>)
+- I<sub>D</sub>(V<sub>DS</sub>)
+- V<sub>TH</sub>
+- V<sub>DSAT</sub>
+- g<sub>m</sub>/I<sub>D</sub>
 - gate capacitance versus bias
 - gate-capacitance density versus geometry
 
@@ -52,10 +52,10 @@ Characterized for:
 
 - transfer characteristics,
 - output characteristics,
-- near-zero threshold behaviour,
-- \(g_m/I_D\).
+- near-zero-threshold behaviour,
+- g<sub>m</sub>/I<sub>D</sub>.
 
-The `nfet_05v0_nvt` compact model supports only a restricted set of characterized geometries. The reference geometry used in this project is therefore \(W/L = 10/2~\mu m/\mu m\).
+The `nfet_05v0_nvt` compact model supports only a restricted set of characterized geometries. The reference geometry used in this project is **W/L = 10/2 µm/µm**.
 
 ---
 
@@ -63,7 +63,7 @@ The `nfet_05v0_nvt` compact model supports only a restricted set of characterize
 
 Nominal **TT, 27 °C** results:
 
-| Device | Reference W/L (µm/µm) | \|VGS\| model range (V) | \|VDS\| model range (V) | VTH (V) | \|VDSAT\| (V) | \|ID\|/W (mA/µm) |
+| Device | Reference W/L (µm/µm) | \|V<sub>GS</sub>\| model range (V) | \|V<sub>DS</sub>\| model range (V) | V<sub>TH</sub> (V) | \|V<sub>DSAT</sub>\| (V) | \|I<sub>D</sub>\|/W (mA/µm) |
 |---|---:|---:|---:|---:|---:|---:|
 | `nfet_01v8` | 10 / 0.5 | 1.95 | 1.95 | +0.611 | 0.573 | 0.220 |
 | `pfet_01v8` | 10 / 0.5 | 1.95 | 1.95 | -0.992 | 0.695 | 0.0419 |
@@ -72,10 +72,10 @@ Nominal **TT, 27 °C** results:
 
 Reference extraction biases:
 
-- `nfet_01v8`: \(V_{GS}=1.8~V,\ V_{DS}=0.9~V\)
-- `pfet_01v8`: \(V_{SG}=1.8~V,\ V_{SD}=0.9~V\)
-- `nfet_03v3_nvt`: \(V_{GS}=3.3~V,\ V_{DS}=1.65~V\)
-- `nfet_05v0_nvt`: \(V_{GS}=5.0~V,\ V_{DS}=2.5~V\)
+- `nfet_01v8`: V<sub>GS</sub> = 1.8 V, V<sub>DS</sub> = 0.9 V
+- `pfet_01v8`: V<sub>SG</sub> = 1.8 V, V<sub>SD</sub> = 0.9 V
+- `nfet_03v3_nvt`: V<sub>GS</sub> = 3.3 V, V<sub>DS</sub> = 1.65 V
+- `nfet_05v0_nvt`: V<sub>GS</sub> = 5.0 V, V<sub>DS</sub> = 2.5 V
 
 > The voltage values listed as model ranges correspond to documented SKY130 SPICE-model operating ranges. They should not be interpreted as absolute-maximum device ratings.
 
@@ -89,12 +89,12 @@ The generated data are intended to answer practical design questions.
 
 | Characterization | Design use |
 |---|---|
-| \(I_D(V_{GS})\) | Gate-bias selection and current capability |
-| \(I_D(V_{DS})\) | Output behaviour and saturation region |
-| \(V_{TH}\) | Threshold and geometry dependence |
-| \(V_{DSAT}\) | Voltage-headroom estimation |
-| \(g_m/I_D\) | Analog transistor sizing and inversion-level selection |
-| \(C_G\) | Gate-loading and capacitive-cost estimation |
+| I<sub>D</sub>(V<sub>GS</sub>) | Gate-bias selection and current capability |
+| I<sub>D</sub>(V<sub>DS</sub>) | Output behaviour and saturation region |
+| V<sub>TH</sub> | Threshold and geometry dependence |
+| V<sub>DSAT</sub> | Voltage-headroom estimation |
+| g<sub>m</sub>/I<sub>D</sub> | Analog transistor sizing and inversion-level selection |
+| C<sub>G</sub> | Gate-loading and capacitive-cost estimation |
 
 The goal is to reuse these results in future circuit projects rather than restarting device characterization for every design.
 
