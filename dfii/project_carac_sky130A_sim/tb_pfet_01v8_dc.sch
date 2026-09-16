@@ -69,18 +69,62 @@ let vdsat_abs 		= abs(@m.xm1.msky130_fd_pr__pfet_01v8[vdsat])
 let vsg 		= 1.8 - v(VSG)
 
 let ro		= 1/gds_abs
-let gm_id 	= gm/id_abs
+let gm_id 	= gm_abs/id_abs
 let gm_gds 	= gm_abs/gds_abs
 
-set wr_vecnames
 set wr_singlescale
+set wr_vecnames
 
-write tb_pfet_01v8_dc.raw v(vsg) id_abs vsg vth_abs vdsat_abs gm_abs gds_abs ro gm_id gm_gds
+wrdata tb_pfet_01v8_dc.dat vsg id_abs gm_abs gds_abs ro gm_id gm_gds vth_abs vdsat_abs
+
+* ============================================================
+* C) Channel-length sweep
+* Fixed W = 10um
+* ============================================================
+
+echo v_sweep L_um ID_A gm_S gds_S gm_id_Vinv gm_gds VTH_V VDSAT_V > tb_pfet_01v8_length.dat
+
+set wr_singlescale
+unset wr_vecnames
+
+foreach l_val 0.18 0.25 0.5 1 2 4 8 10
+
+    alterparam LDEV = $l_val
+    reset
+
+    save i(VSD)
+    save @m.xm1.msky130_fd_pr__pfet_01v8[gm]
+    save @m.xm1.msky130_fd_pr__pfet_01v8[gds]
+    save @m.xm1.msky130_fd_pr__pfet_01v8[vth]
+    save @m.xm1.msky130_fd_pr__pfet_01v8[vdsat]
+
+    dc VSG 1.8 0 -0.005
+
+    let id_abs    = abs(i(VSD))
+    let gm_abs    = abs(@m.xm1.msky130_fd_pr__pfet_01v8[gm])
+    let gds_abs   = abs(@m.xm1.msky130_fd_pr__pfet_01v8[gds])
+    let vth_abs   = abs(@m.xm1.msky130_fd_pr__pfet_01v8[vth])
+    let vdsat_abs = abs(@m.xm1.msky130_fd_pr__pfet_01v8[vdsat])
+
+    let gm_id  = gm_abs/id_abs
+    let gm_gds = gm_abs/gds_abs
+
+    let l_um = id_abs*0 + $l_val
+
+    set appendwrite
+    wrdata tb_pfet_01v8_length.dat l_um id_abs gm_abs gds_abs gm_id gm_gds vth_abs vdsat_abs
+
+end
+
+unset appendwrite
+
+alterparam LDEV = 0.5
+reset
 
 .endc"}
 C {sky130_fd_pr/pfet_01v8.sym} 1280 -1460 0 0 {name=M1
-W=1
-L=0.15
+W=WDEV
+L=LDEV
 nf=1
 mult=1
 ad="expr('int((@nf + 1)/2) * @W / @nf * 0.29')"

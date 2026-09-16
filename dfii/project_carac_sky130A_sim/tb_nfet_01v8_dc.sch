@@ -69,21 +69,69 @@ save @m.xm1.msky130_fd_pr__nfet_01v8[gds]
 save @m.xm1.msky130_fd_pr__nfet_01v8[vth]
 save @m.xm1.msky130_fd_pr__nfet_01v8[vdsat]
 
-dc VGS 0 1.8 0.005 
+dc VGS 0 1.8 0.005
 
-let id = -i(VDS)
-let gm = @m.xm1.msky130_fd_pr__nfet_01v8[gm]
-let gds = @m.xm1.msky130_fd_pr__nfet_01v8[gds]
-let vth = @m.xm1.msky130_fd_pr__nfet_01v8[vth]
+let id    = -i(VDS)
+
+let gm    = @m.xm1.msky130_fd_pr__nfet_01v8[gm]
+let gds   = @m.xm1.msky130_fd_pr__nfet_01v8[gds]
+let vth   = @m.xm1.msky130_fd_pr__nfet_01v8[vth]
 let vdsat = @m.xm1.msky130_fd_pr__nfet_01v8[vdsat]
 
-let ro		= 1/gds
-let gm_id 	= gm/id
-let gm_gds 	= gm/gds
+let ro     = 1/gds
+let gm_id  = gm/id
+let gm_gds = gm/gds
 
-set wr_vecnames
 set wr_singlescale
+set wr_vecnames
 
-write tb_nfet_01v8_dc.raw v(vgs) id vth vdsat gm gds ro vth gm_id gm_gds
+wrdata tb_nfet_01v8_dc.dat v(vgs) id gm gds ro gm_id gm_gds vth vdsat
+
+write tb_nfet_01v8_dc.raw v(vgs) id vth vdsat gm gds ro gm_id gm_gds
+
+* ============================================================
+* C) Channel-length sweep
+* Fixed W = 10um
+* ============================================================
+
+echo VGS_V L_um ID_A gm_S gds_S gm_id_Vinv gm_gds VTH_V VDSAT_V > tb_nfet_01v8_length.dat
+
+set wr_singlescale
+unset wr_vecnames
+
+foreach l_val 0.18 0.25 0.5 1 2 4 8 10
+
+    alterparam LDEV = $l_val
+    reset
+
+    save v(vgs)
+    save i(VDS)
+    save @m.xm1.msky130_fd_pr__nfet_01v8[gm]
+    save @m.xm1.msky130_fd_pr__nfet_01v8[gds]
+    save @m.xm1.msky130_fd_pr__nfet_01v8[vth]
+    save @m.xm1.msky130_fd_pr__nfet_01v8[vdsat]
+
+    dc VGS 0 1.8 0.005
+
+    let id    = -i(VDS)
+    let gm    = @m.xm1.msky130_fd_pr__nfet_01v8[gm]
+    let gds   = @m.xm1.msky130_fd_pr__nfet_01v8[gds]
+    let vth   = @m.xm1.msky130_fd_pr__nfet_01v8[vth]
+    let vdsat = @m.xm1.msky130_fd_pr__nfet_01v8[vdsat]
+
+    let gm_id  = gm/id
+    let gm_gds = gm/gds
+
+    let l_um = v(vgs)*0 + $l_val
+
+    set appendwrite
+    wrdata tb_nfet_01v8_length.dat l_um v(vgs) id gm gds gm_id gm_gds vth vdsat
+
+end
+
+unset appendwrite
+
+alterparam LDEV = 0.5
+reset
 
 .endc"}

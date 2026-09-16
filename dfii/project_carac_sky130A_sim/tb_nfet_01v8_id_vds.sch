@@ -55,7 +55,6 @@ value=".include /foss/designs/project_carac_sky130A/models/reduced/sky130_tt.red
 
 .param WDEV=10
 .param LDEV=0.5
-.param VGS_BIAS=1.0
 "}
 C {code_shown.sym} 520 -1710 0 0 {name=s2 only_toplevel=true place=end 
 value=".control
@@ -68,6 +67,9 @@ dc VDS 0 1.8 0.005 VGS 0.6 1.8 0.2
 
 let id = -i(VDS)
 
-write tb_nfet_01v8_id_vds.raw v(vds) v(vgs) id
+set wr_singlescale
+set wr_vecnames
+
+wrdata tb_nfet_01v8_id_vds.dat v(vds) v(vgs) id
 
 .endc"}

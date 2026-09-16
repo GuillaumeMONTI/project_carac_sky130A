@@ -1,53 +1,161 @@
-% !TeX root = ../main.tex
+% !TeX root = ../report_project_carac_sky130A.tex
 
 \section{Project Overview}
 \label{sec:project_overview}
 
+
+% ============================================================
+% Objective
+% ============================================================
+
 \subsection{Objective}
 
-The purpose of this project is to characterize the analog MOS devices
-available in the SKY130A process design kit and generate practical
-design data for transistor-level analog IC design.
+The purpose of this project is to characterize a selected set of
+SKY130A MOS devices and generate practical device data for subsequent
+analog IC design.
 
-Rather than relying only on simplified MOS models, the characterization
-is performed directly using the foundry device models through
-\code{ngspice}.
+The objective is not to reproduce MOS transistor theory or to
+exhaustively characterize every device available in the PDK.
+Instead, the characterization focuses on quantities that are directly
+useful when selecting a device, estimating its operating point, and
+performing transistor sizing.
 
-\begin{designobjective}
-	
-	Build a reusable characterization flow providing the principal
-	electrical quantities required for analog sizing, including drain
-	current, threshold voltage, saturation voltage, transconductance,
-	output conductance, transconductance efficiency and intrinsic gain.
-	
-\end{designobjective}
+The characterized device families are:
 
+\begin{itemize}
+	\item the standard \qty{1.8}{\volt} NMOS and PMOS devices;
+	\item the \code{nfet\_03v3\_nvt} native NMOS;
+	\item the \code{nfet\_05v0\_nvt} native NMOS.
+\end{itemize}
+
+Additional device families can be characterized later when required by
+a specific circuit architecture.
+
+
+% ============================================================
+% Characterization scope
+% ============================================================
 
 \subsection{Characterization Scope}
 
-The characterization initially focuses on the core NMOS and PMOS
-devices used for analog design.
-
-The extracted quantities include:
+The characterization concentrates on the quantities most useful during
+analog design:
 
 \begin{itemize}
-	\item drain current $I_D$,
-	\item threshold voltage $V_{TH}$,
-	\item saturation voltage $V_{DSAT}$,
-	\item transconductance $g_m$,
-	\item output conductance $g_{ds}$,
-	\item transconductance efficiency $\frac{g_m}{I_D}$,
-	\item intrinsic gain $\frac{g_m}{g_{ds}}$.
+	\item drain-current transfer characteristics;
+	\item output-characteristic families;
+	\item threshold voltage $V_{TH}$;
+	\item saturation voltage $V_{DSAT}$;
+	\item transconductance efficiency $g_m/I_D$;
+	\item effective MOS gate capacitance.
 \end{itemize}
 
+The main purpose of the generated curves is to provide reusable sizing
+and biasing references rather than to illustrate fundamental MOS
+operation.
 
-\subsection{Design Flow}
 
-The characterization flow is based on automated DC simulations of the
-SKY130A device models.
+% ============================================================
+% Design flow
+% ============================================================
 
-Electrical quantities are extracted over controlled bias sweeps and
-stored in a form that can later be reused during transistor sizing.
+\subsection{Characterization Flow}
 
-The resulting data will serve as a design reference for subsequent
-analog projects implemented with the SKY130A PDK.
+The characterization flow uses Xschem testbenches and the SKY130A
+device models simulated with ngspice inside the IIC-OSIC-TOOLS
+environment.
+
+DC and AC sweeps are exported as numerical data and post-processed with
+Python to generate the figures presented in this report.
+
+Unless otherwise stated, the results correspond to the nominal TT
+process corner at \qty{27}{\degreeCelsius}.
+
+
+% ============================================================
+% Quick reference
+% ============================================================
+
+\subsection{Device Quick Reference}
+\label{sec:device_quick_reference}
+
+Table~\ref{tab:device_quick_reference} provides a compact reference for
+the characterized devices. It is intended to be the first source of
+device-level information during future circuit design.
+
+\begin{table}[H]
+	\centering
+	\small
+	\caption{Quick reference for the characterized SKY130A MOS devices
+		at TT and \qty{27}{\degreeCelsius}.}
+	\label{tab:device_quick_reference}
+	
+	\begin{tabular}{lcccccc}
+		\toprule
+		Device &
+		Ref. $W/L$ &
+		$|V_{GS}|_{\max}$ &
+		$|V_{DS}|_{\max}$ &
+		$V_{TH}$ &
+		$|V_{DSAT}|$ &
+		$|I_D|/W$ \\
+		
+		&
+		($\mu$m/$\mu$m) &
+		(V) &
+		(V) &
+		(V) &
+		(V) &
+		(mA/$\mu$m) \\
+		\midrule
+		
+		\code{nfet\_01v8}
+		& 10/0.5
+		& 1.95
+		& 1.95
+		& +0.611
+		& 0.573
+		& 0.220 \\
+		
+		\code{pfet\_01v8}
+		& 10/0.5
+		& 1.95
+		& 1.95
+		& -0.992
+		& 0.695
+		& 0.0419 \\
+		
+		\code{nfet\_03v3\_nvt}
+		& 10/0.5
+		& 3.3
+		& 3.3
+		& -0.0133
+		& 1.032
+		& 0.512 \\
+		
+		\code{nfet\_05v0\_nvt}
+		& 10/2
+		& 5.5
+		& 5.5
+		& +0.0529
+		& 3.159
+		& 0.341 \\
+		
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{designnote}
+	The voltage limits reported in
+	Table~\ref{tab:device_quick_reference} correspond to the documented
+	SPICE-model operating ranges and should not be interpreted as device
+	absolute-maximum ratings. The documented ranges are taken from the
+	SKY130A device documentation~\cite{sky130_device_details}.
+	
+	The extracted quantities use the reference transfer-characterization
+	biases: $|V_{GS}|=\qty{1.8}{\volt}$ and
+	$|V_{DS}|=\qty{0.9}{\volt}$ for the standard \qty{1.8}{\volt} devices,
+	$V_{GS}=\qty{3.3}{\volt}$ and $V_{DS}=\qty{1.65}{\volt}$ for the
+	\code{nfet\_03v3\_nvt}, and $V_{GS}=\qty{5}{\volt}$ and
+	$V_{DS}=\qty{2.5}{\volt}$ for the \code{nfet\_05v0\_nvt}.
+\end{designnote}

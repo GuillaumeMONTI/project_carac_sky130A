@@ -1,0 +1,28 @@
+% !TeX root = ../report_project_carac_sky130A.tex
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This project establishes a compact characterization reference for the
+SKY130A MOS devices most relevant to the planned analog design work.
+
+The standard \qty{1.8}{\volt} NMOS and PMOS were characterized in terms
+of drain current, threshold and saturation voltages,
+transconductance efficiency, and gate capacitance.
+
+The \code{nfet\_03v3\_nvt} and
+\code{nfet\_05v0\_nvt} were additionally characterized to provide
+low-threshold alternatives for circuits requiring native-device
+operation.
+
+The report intentionally concentrates on practical design quantities
+rather than providing an exhaustive characterization of the complete
+PDK. Device families such as the high-voltage MOS devices can be added
+when a future circuit---for example a CIS architecture---actually
+requires them.
+
+The quick-reference table in
+Section~\ref{sec:device_quick_reference} is intended to provide the
+main entry point for future device selection, while the detailed plots
+remain available when bias- or geometry-dependent information is
+required.

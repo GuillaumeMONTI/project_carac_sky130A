@@ -27,8 +27,8 @@ N 1180 -1280 1180 -1270 {lab=0}
 N 1300 -1460 1310 -1460 {lab=VDD}
 N 1380 -1280 1380 -1270 {lab=0}
 N 1180 -1350 1180 -1280 {lab=0}
-N 1300 -1430 1300 -1340 {lab=VSD}
-N 1300 -1340 1380 -1340 {lab=VSD}
+N 1300 -1430 1300 -1340 {lab=VD}
+N 1300 -1340 1380 -1340 {lab=VD}
 N 1120 -1530 1120 -1270 {lab=0}
 N 1120 -1270 1180 -1270 {lab=0}
 N 1120 -1660 1120 -1590 {lab=VDD}
@@ -37,7 +37,7 @@ N 1300 -1660 1300 -1490 {lab=VDD}
 N 1310 -1660 1310 -1460 {lab=VDD}
 N 1290 -1660 1310 -1660 {lab=VDD}
 C {vsource.sym} 1180 -1430 0 0 {name=VG value=0 savecurrent=false}
-C {vsource.sym} 1380 -1310 0 0 {name=VD value=0.9 savecurrent=true}
+C {vsource.sym} 1380 -1310 0 0 {name=VD value=0 savecurrent=true}
 C {gnd.sym} 1180 -1270 0 0 {name=l1 lab=0}
 C {lab_pin.sym} 1250 -1460 0 0 {name=p2 sig_type=std_logic lab=VG}
 C {code_shown.sym} 290 -1870 0 0 {name=s1 only_toplevel=true place=header 
@@ -45,7 +45,6 @@ value=".include /foss/designs/project_carac_sky130A/models/reduced/sky130_tt.red
 
 .param WDEV=10
 .param LDEV=0.5
-.param VSD_BIAS=0.9
 
 "}
 C {code_shown.sym} 290 -1710 0 0 {name=s2 only_toplevel=true place=end 
@@ -60,12 +59,14 @@ let id_abs 		= abs(i(VD))
 let vsd 		= 1.8 - v(VD)
 let vsg 		= 1.8 - v(VG)
 
-write tb_pfet_01v8_id_vsd.raw vsd vsg id_abs
+set wr_singlescale
+set wr_vecnames
 
+wrdata tb_pfet_01v8_id_vsd.dat vsd vsg id_abs
 .endc"}
 C {sky130_fd_pr/pfet_01v8.sym} 1280 -1460 0 0 {name=M1
-W=1
-L=0.15
+W=WDEV
+L=LDEV
 nf=1
 mult=1
 ad="expr('int((@nf + 1)/2) * @W / @nf * 0.29')"

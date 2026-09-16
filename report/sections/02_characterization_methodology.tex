@@ -1,84 +1,228 @@
-% !TeX root = ../main.tex
+% !TeX root = ../report_project_carac_sky130A.tex
 
 \section{Characterization Methodology}
 \label{sec:characterization_methodology}
 
+
+% ============================================================
+% Environment
+% ============================================================
+
 \subsection{Simulation Environment}
 
-The characterization environment is based on the open-source
-IIC-OSIC-TOOLS design stack.
-
-The main tools used are:
+The characterization flow uses:
 
 \begin{itemize}
-	\item \code{Xschem} for schematic capture,
-	\item \code{ngspice} for electrical simulation,
-	\item the SKY130A PDK for transistor models,
-	\item scripting for automated data extraction and post-processing.
+	\item Xschem for schematic capture and simulation testbenches;
+	\item ngspice for DC and AC analyses;
+	\item SKY130A compact device models;
+	\item Python for numerical post-processing and plotting.
 \end{itemize}
 
-
-\subsection{Device Testbench}
-
-A dedicated MOS characterization testbench is used to control the
-device terminal voltages independently.
-
-The transistor operating point is evaluated while sweeping the relevant
-bias quantities such as $V_{GS}$ and $V_{DS}$.
-
-% Insert characterization testbench schematic here.
+Unless otherwise stated, simulations use the nominal TT model at
+\qty{27}{\degreeCelsius}.
 
 
-\subsection{Bias Sweeps}
+% ============================================================
+% Standard MOS DC benches
+% ============================================================
 
-The characterization is based primarily on DC sweeps.
+\subsection{DC Characterization}
 
-Typical sweep variables include:
+Two complementary analyses are used for the standard MOS devices:
 
 \begin{itemize}
-	\item gate-source voltage $V_{GS}$,
-	\item drain-source voltage $V_{DS}$,
-	\item transistor channel length $L$,
-	\item process corner,
-	\item temperature.
+	\item a gate-voltage sweep to obtain transfer and operating-point
+	data;
+	\item a drain-voltage sweep to obtain output-characteristic
+	families.
 \end{itemize}
 
+The corresponding NMOS and PMOS transfer testbenches are shown in
+Figure~\ref{fig:tb_01v8_transfer}.
 
-\subsection{Extracted Quantities}
+\begin{figure}[H]
+	\centering
+	
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]
+		{figures/schematics/tb_nfet_01v8_dc.pdf}
+		
+		\smallskip
+		\small (a) NMOS
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]
+		{figures/schematics/tb_pfet_01v8_dc.pdf}
+		
+		\smallskip
+		\small (b) PMOS
+	\end{minipage}
+	
+	\caption{Transfer-characterization testbenches for the standard
+		\qty{1.8}{\volt} MOS devices.}
+	\label{fig:tb_01v8_transfer}
+\end{figure}
 
-For every operating point, the simulator provides or allows the
-derivation of the transistor quantities required for analog design.
+The output-characteristic benches are shown in
+Figure~\ref{fig:tb_01v8_output}.
 
-The principal metrics are
+\begin{figure}[H]
+	\centering
+	
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]
+		{figures/schematics/tb_nfet_01v8_id_vds.pdf}
+		
+		\smallskip
+		\small (a) NMOS
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]
+		{figures/schematics/tb_pfet_01v8_id_vsd.pdf}
+		
+		\smallskip
+		\small (b) PMOS
+	\end{minipage}
+	
+	\caption{Output-characteristic testbenches for the standard
+		\qty{1.8}{\volt} MOS devices.}
+	\label{fig:tb_01v8_output}
+\end{figure}
+
+
+% ============================================================
+% Sweep conditions
+% ============================================================
+
+\subsection{Sweep Conditions}
+
+The principal characterization conditions are summarized in
+Table~\ref{tab:characterization_sweeps}.
+
+\begin{table}[H]
+	\centering
+	\small
+	\caption{Principal standard-device characterization sweeps.}
+	\label{tab:characterization_sweeps}
+	
+	\begin{tabular}{lll}
+		\toprule
+		Analysis & Swept quantity & Fixed / stepped condition \\
+		\midrule
+		
+		NMOS transfer &
+		$V_{GS}: 0 \rightarrow \qty{1.8}{\volt}$ &
+		$V_{DS}=\qty{0.9}{\volt}$ \\
+		
+		PMOS transfer &
+		$V_{SG}: 0 \rightarrow \qty{1.8}{\volt}$ &
+		$V_{SD}=\qty{0.9}{\volt}$ \\
+		
+		NMOS output &
+		$V_{DS}: 0 \rightarrow \qty{1.8}{\volt}$ &
+		$V_{GS}=0.6,0.8,\ldots,1.8~\mathrm{V}$ \\
+		
+		PMOS output &
+		$V_{SD}: 0 \rightarrow \qty{1.8}{\volt}$ &
+		$V_{SG}=0.6,0.8,\ldots,1.8~\mathrm{V}$ \\
+		
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+% ============================================================
+% Quantities
+% ============================================================
+
+\subsection{Extracted Design Quantities}
+
+The characterization is organized around quantities that can be reused
+directly during transistor sizing.
+
+\begin{table}[H]
+	\centering
+	\small
+	\caption{Purpose of the principal extracted quantities.}
+	\label{tab:quantity_purpose}
+	
+	\begin{tabular}{lp{0.67\textwidth}}
+		\toprule
+		Quantity & Design use \\
+		\midrule
+		
+		$I_D(V_{GS})$ &
+		Current capability and gate-bias selection. \\
+		
+		$I_D(V_{DS})$ &
+		Output behaviour, saturation region and available current. \\
+		
+		$V_{TH}$ &
+		Threshold reference and geometry dependence. \\
+		
+		$V_{DSAT}$ &
+		Drain-source headroom required for saturation. \\
+		
+		$g_m/I_D$ &
+		Direct transconductance-efficiency reference for analog sizing. \\
+		
+		$C_G$ &
+		Estimate of the capacitive cost associated with MOS gates. \\
+		
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+For the drain-current extraction, the ngspice voltage-source current
+convention is accounted for using
 
 \begin{equation}
-	\frac{g_m}{I_D}
-	\label{eq:gmid}
+	I_D=-I(V_{DS}).
 \end{equation}
 
-and
+Where available, $V_{TH}$ and $V_{DSAT}$ are taken directly from the
+compact-model operating-point information.
+
+
+% ============================================================
+% MOS capacitance
+% ============================================================
+
+\subsection{MOS Capacitance Characterization}
+
+The standard NMOS and PMOS devices are also evaluated as two-terminal
+MOS capacitors.
+
+For the NMOS, drain, source and bulk are shorted to ground. For the
+PMOS, the same terminals are connected to the
+\qty{1.8}{\volt} supply.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.68\textwidth]
+	{figures/schematics/tb_mos_01v8_moscap.pdf}
+	\caption{Combined NMOS and PMOS gate-capacitance characterization
+		testbench.}
+	\label{fig:tb_mos_01v8_moscap}
+\end{figure}
+
+A unit-magnitude small-signal AC excitation is applied to the gate at
+\qty{1}{\mega\hertz}. The equivalent gate capacitance is obtained from
 
 \begin{equation}
-	A_{v,\mathrm{int}}
-	=
-	\frac{g_m}{g_{ds}},
-	\label{eq:intrinsic_gain}
+	C_G =
+	\frac{\left|\operatorname{Im}(I_G)\right|}
+	{2\pi f}.
 \end{equation}
 
-where $\frac{g_m}{I_D}$ represents transconductance efficiency and
-$\frac{g_m}{g_{ds}}$ represents the transistor intrinsic voltage gain.
-
-
-\subsection{Data Processing}
-
-Simulation results are exported and processed to generate reusable
-characterization curves and design data.
-
-\begin{designnote}
-	
-	The characterization scripts and testbenches are kept separate from
-	the report itself. The report documents the methodology and the
-	resulting design insight, while the repository contains the complete
-	implementation.
-	
-\end{designnote}
+The retained results are $C_G$ versus capacitor voltage, used to
+quantify bias dependence, and $C_G/(WL)$ versus channel length, used
+to quantify geometry dependence and estimate effective capacitance
+density.
